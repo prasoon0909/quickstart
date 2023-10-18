@@ -46,9 +46,7 @@ module.exports.getImagekitUrlFromPath = function (
 
 async function fetchSecurityCredentails() {
   try {
-    const response = await fetch(
-      'https://8123-2401-4900-820c-a675-3c50-8ff-b04-82f9.ngrok-free.app/auth',
-    );
+    const response = await fetch(imagekitConfigOptions.authenticationEndpoint);
 
     if (!response.ok) {
       const errorText = await response.text();
@@ -66,10 +64,6 @@ async function fetchSecurityCredentails() {
 }
 
 module.exports.uploadFile = async file => {
-  console.log('🚀 ~ file: imagekit.js:72 ~ file:', {
-    ...file,
-    ...imagekitConfigOptions,
-  });
   const securityParameters = await fetchSecurityCredentails();
   return await imagekit.upload({
     file,
